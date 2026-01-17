@@ -60,29 +60,22 @@ class NonAsciiEncodeDecode:
 
 class OptimalSolution:
     def encode(self, strs: List[str]) -> str:
-        notated_strs = [f'{len(s)}{s}' for s in strs]
-        encoded_string = "".join(notated_strs)
+        encoded_string = "".join([f'{len(s)}#{s}' for s in strs])
         return encoded_string
 
     def decode(self, s: str) -> List[str]:
-        # Think about changing to a slice rather than iteration
-
-        if not s:
-            return []
-        string_builder:List[str] = []
         decoded_list:List[str] = []
-        counter = int(s[0])
-        for i in range(len(s) +1):
-            if counter == -1:
-                string_builder.pop(0)
-                decoded_list.append("".join(string_builder))
-                string_builder = []
-                if i < len(s):
-                    counter = int(s[i])
-                    string_builder.append(s[i])
-            elif i < len(s):
-                string_builder.append(s[i])
-            counter -= 1
+        i = 0
+        while i < len(s):
+            j = i
+
+            j = s.find('#', i)
+            length = int(s[i:j])
+            start = j + 1
+            end = start + length
+            decoded_list.append(s[start:end])
+
+            i = end
 
         return decoded_list
 
@@ -95,7 +88,7 @@ if __name__ == "__main__":
     # brute_soltuion = BruteEncodeDecode()
     # nonAsciiEncodeDecode = NonAsciiEncodeDecode()
     optimalSolution = OptimalSolution()
-    encoded_string = optimalSolution.encode(test_input)
+    encoded_string = optimalSolution.encode(blank_input)
     decoded_string = optimalSolution.decode(encoded_string)
 
     print(decoded_string)
