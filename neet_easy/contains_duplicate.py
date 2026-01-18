@@ -1,4 +1,4 @@
-
+from typing import List
 
 class HasDuplicateSolution:
     def has_duplicate(self, nums: List[int]) -> bool:
