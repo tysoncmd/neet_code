@@ -1,8 +1,6 @@
 from typing import List
 
 class BruteEncodeDecode:
-    #switch to using non-ascii with char(257) then add the number of characters to help speed up decoding
-
     def encode(self, strs: List[str]) -> str:
         encoded_text = ""
         for index, s in enumerate(strs):
