@@ -20,10 +20,18 @@ class BruteSolution:
 
 class PrefixSuffixSolution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
+        result = []
         prefix_prod = list(accumulate(nums, operator.mul))
-        suffix_prod = list(accumulate(reversed(nums), operator.mul))
-        print(prefix_prod)
-        print(suffix_prod)
+        suffix_prod = list(reversed(list(accumulate(reversed(nums), operator.mul))))
+        for index, num in enumerate(nums):
+            if index == 0:
+                result.append(suffix_prod[index +1])
+            elif index == len(nums) -1:
+                result.append(prefix_prod[index -1])
+            else:
+                result.append(prefix_prod[index -1] * suffix_prod[index +1])
+
+        return result
 
 
 
@@ -31,9 +39,12 @@ if __name__ == "__main__":
     test1 = [1, 2, 4, 6]
     test2 = [-1,0,1,2,3]
     test3 = [2, 2, 3, 4]
+    test4 = [1, 2, 3, 4]
 
     bruteSolution = BruteSolution()
-    # prefixSuffixSolution = PrefixSuffixSolution()
-    result = bruteSolution.productExceptSelf(test3)
+    prefixSuffixSolution = PrefixSuffixSolution()
+    result_b = bruteSolution.productExceptSelf(test4)
+    result_p = prefixSuffixSolution.productExceptSelf(test4)
 
-    print(result)
+    print(result_b)
+    print(result_p)
