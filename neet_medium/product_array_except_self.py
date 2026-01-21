@@ -1,4 +1,6 @@
 from typing import List
+from itertools import accumulate
+import operator
 
 class BruteSolution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
@@ -16,6 +18,13 @@ class BruteSolution:
 
         return calc_list
 
+class PrefixSuffixSolution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        prefix_prod = list(accumulate(nums, operator.mul))
+        suffix_prod = list(accumulate(reversed(nums), operator.mul))
+        print(prefix_prod)
+        print(suffix_prod)
+
 
 
 if __name__ == "__main__":
@@ -24,6 +33,7 @@ if __name__ == "__main__":
     test3 = [2, 2, 3, 4]
 
     bruteSolution = BruteSolution()
+    # prefixSuffixSolution = PrefixSuffixSolution()
     result = bruteSolution.productExceptSelf(test3)
 
     print(result)
